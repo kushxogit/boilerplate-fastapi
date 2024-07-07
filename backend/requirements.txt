@@ -1,0 +1,17 @@
+fastapi
+uvicorn[standard]
+fastapi-mail
+
+python-multipart
+python-jose[cryptography]
+passlib[bcrypt]
+
+pydantic[email]
+
+# MongoDB driver
+motor
+beanie  # Added Beanie ODM
+
+# Testing
+pytest
+httpx
