@@ -91,9 +91,6 @@ Description: Includes the data models and schemas used for authentication, featu
             │   │   └── auth_schemas.py
             │   ├── auth_main.py
             │   └── auth_service.py
-            ├── users
-            ├── bookings
-            ├── rooms
             └── __init__.py
 ```
 
