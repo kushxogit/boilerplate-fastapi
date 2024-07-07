@@ -1,5 +1,5 @@
 import pytest
-from src.routes.auth.models import PasswordResetToken
+from backend.src.routes.auth.store.auth_models import PasswordResetToken
 from src.routes.users.models import User
 import asyncio
 

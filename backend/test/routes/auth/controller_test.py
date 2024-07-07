@@ -1,4 +1,4 @@
-from src.routes.auth.controller import verify_password, get_password_hash
+from backend.src.routes.auth.api.controller import verify_password, get_password_hash
 
 
 def test_verify_password():
