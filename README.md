@@ -11,15 +11,19 @@ Repository:
 
 2.  **Check if pip is installed**
     Confirm pip installation by running the following command in your terminal:
+
     ```shell
     pip --version
 
     ```
+
 3.  **Install Required Packages**
     Install all the necessary packages using pip by executing:
+
     ```shell
     pip install -r requirements.txt
-    '''
+    ```
+
     Note: The requirements.txt file can be found in our project directory.
 
 4.  **Run the Application**
