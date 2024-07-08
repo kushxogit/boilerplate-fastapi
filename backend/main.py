@@ -1,5 +1,9 @@
 # WRITING COMMENTS INITIALLY FOR BETTER ONBOARDING AND EASIER UNDERSTANDING P.S. WE WILL REMOVE THESE AFTER WE ALL KNOW HOW ITS WORKING
 # This file is the main entry point for the FastAPI application.
+import sys
+import os
+
+
 
 # Import FastAPI for creating the web application
 from fastapi import FastAPI

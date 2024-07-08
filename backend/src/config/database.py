@@ -7,10 +7,10 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from beanie import init_beanie
 
 # Import UserCredentials model from auth_models
-from backend.src.routes.auth.store.auth_models import UserCredentials
+from src.routes.auth.store.auth_models import UserCredentials
 
 # MongoDB connection string
-MONGO_DETAILS = "mongodb://localhost:27017"
+MONGO_DETAILS = "mongodb://localhost:27017/"
 # Database name
 DATABASE_NAME = "example_db"
 

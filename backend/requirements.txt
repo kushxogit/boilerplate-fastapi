@@ -15,3 +15,6 @@ beanie  # Added Beanie ODM
 # Testing
 pytest
 httpx
+
+pyjwt
+asyncio
