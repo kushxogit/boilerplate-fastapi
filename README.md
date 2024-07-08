@@ -19,6 +19,7 @@ Repository:
     Install all the necessary packages using pip by executing:
     ```shell
     pip install -r requirements.txt
+    '''
     Note: The requirements.txt file can be found in our project directory.
 
 4.  **Run the Application**
