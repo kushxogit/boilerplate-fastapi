@@ -6,7 +6,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 # Import init_beanie to initialize Beanie with MongoDB
 from beanie import init_beanie
 
-# Import UserCredentials model from auth_models
+# Import UserCredentials model from auth_modelsasdnkj
 from src.routes.auth.store.auth_models import UserCredentials
 
 # MongoDB connection string
