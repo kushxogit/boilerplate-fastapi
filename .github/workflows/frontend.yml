@@ -21,13 +21,16 @@ permissions:
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
-  group: 'pages'
+  group: "pages"
   cancel-in-progress: false
 
 jobs:
   # Build job
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend/
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -51,7 +54,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
           cache: ${{ steps.detect-package-manager.outputs.manager }}
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -81,7 +84,7 @@ jobs:
           path: ./out
 
   # Deployment job
-  deploy:
+  .deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
