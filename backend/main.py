@@ -56,9 +56,9 @@ def main_function():
 @app.post("/token")
 def forward_to_login():
     """
-    Redirect to token-generation (`/auth/token`). Used to make Auth in Swagger-UI work.
+    Redirect to token-generation (`/token`). Used to make Auth in Swagger-UI work.
     """
-    return RedirectResponse(url="/auth/token")
+    return RedirectResponse(url="/token")
 
 # Route to test the database connection
 @app.get("/test-db")
