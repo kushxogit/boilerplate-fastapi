@@ -5,6 +5,7 @@ import logging
 from motor.motor_asyncio import AsyncIOMotorClient
 # Import init_beanie to initialize Beanie with MongoDB
 from beanie import init_beanie
+from backend.src.routes.account.store.auth_models import Account
 
 # Import UserCredentials model from auth_models
 from src.routes.auth.store.auth_models import UserCredentials
@@ -28,7 +29,7 @@ logger = logging.getLogger(__name__)
 async def init_beanie_db():
     try:
         # Initialize Beanie with the database and UserCredentials model
-        await init_beanie(database=database, document_models=[UserCredentials])
+        await init_beanie(database=database, document_models=[UserCredentials, Account])
         logger.info("Beanie initialized with database and models.")
         # Check if dummy data already exists
         existing_user = await UserCredentials.find_one(UserCredentials.username == "testuser")
