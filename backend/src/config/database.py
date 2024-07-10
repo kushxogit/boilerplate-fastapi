@@ -10,7 +10,7 @@ from beanie import init_beanie
 from src.routes.auth.store.auth_models import UserCredentials
 
 # Import the Account model
-from ..account.store.acc_models import Account
+from src.routes.account.store.account_model
 
 
 # MongoDB connection string
