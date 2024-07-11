@@ -9,6 +9,10 @@ from beanie import init_beanie
 # Import UserCredentials model from auth_models
 from src.routes.auth.store.auth_models import UserCredentials
 
+# Import the Account model
+from src.routes.account.store.account_model
+
+
 # MongoDB connection string
 MONGO_DETAILS = "mongodb://localhost:27017/"
 # Database name

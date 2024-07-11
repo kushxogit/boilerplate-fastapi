@@ -29,7 +29,8 @@ Repository:
 4.  **Run the Application**
     To start the application, use the following command:
 
-        uvicorn main:app --reload
+         cd /backend  
+         uvicorn main:app --reload
 
 # Understand the Project Structure
 
