@@ -5,7 +5,7 @@ import logging
 from motor.motor_asyncio import AsyncIOMotorClient
 # Import init_beanie to initialize Beanie with MongoDB
 from beanie import init_beanie
-from backend.src.routes.account.store.auth_models import Account
+from src.routes.account.store.account_models import Account
 
 # Import UserCredentials model from auth_models
 from src.routes.auth.store.auth_models import UserCredentials
