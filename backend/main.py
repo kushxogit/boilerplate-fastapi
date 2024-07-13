@@ -43,6 +43,7 @@ app.include_router(auth_router, prefix="/auth", tags=["Authentication"])
 async def startup_event():
     # Initialize the database connection on startup
     await init_beanie_db()
+    print
 
 # Route to redirect / to Swagger-UI documentation
 @app.get("/")
