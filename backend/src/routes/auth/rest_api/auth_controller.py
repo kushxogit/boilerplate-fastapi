@@ -1,27 +1,33 @@
-# WRITING COMMENTS INITIALLY FOR BETTER ONBOARDING AND EASIER UNDERSTANDING P.S. WE WILL REMOVE THESE AFTER WE ALL KNOW HOW ITS WORKING
-# This file contains the API endpoints for handling authentication requests.
+from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordRequestForm
+from datetime import timedelta
+from auth_service import authenticate_user, create_access_token, verify_token_data
+from auth_types import Token
 
-from fastapi import HTTPException, status  # Importing FastAPI's HTTPException for error handling.
-from ..auth_service import AuthService  # Importing the AuthService class for authentication logic.
-from pydantic import BaseModel  # Importing BaseModel from Pydantic for request data validation.
+router = APIRouter()
 
-class AuthDetails(BaseModel):
-    # Pydantic model for authentication details.
-    username: str
-    password: str
+@router.post("/token", response_model=Token)
+async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
+    user = authenticate_user(form_data.username, form_data.password)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    access_token_expires = timedelta(minutes=4320)  # 3 days in minutes
+    access_token = create_access_token(
+        data={"sub": user.username}, expires_delta=access_token_expires
+    )
+    return {"access_token": access_token, "token_type": "bearer"}
 
-async def login_for_access_token(auth_details: AuthDetails):
-    # Endpoint for logging in and getting an access token.
-    token = await AuthService.authenticate_user(auth_details.username, auth_details.password)  # Authenticating the user.
-    if not token:
-        # If authentication fails, raise an HTTP 401 error.
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorrect username or password")
-    return {"access_token": token, "token_type": "bearer"}  # Returning the access token.
-
+@router.get("/verify-token", response_model=dict)
 async def verify_token(token: str):
-    # Endpoint for verifying the validity of an access token.
-    payload = await AuthService.verify_user_token(token)  # Verifying the token.
-    if not payload:
-        # If token verification fails, raise an HTTP 401 error.
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
-    return {"message": "Token is valid", "data": payload}  # Returning the verification result.
+    token_data = verify_token_data(token)
+    if not token_data:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid token",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    return {"username": token_data.username}

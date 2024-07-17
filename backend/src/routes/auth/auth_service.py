@@ -1,20 +1,42 @@
-# WRITING COMMENTS INITIALLY FOR BETTER ONBOARDING AND EASIER UNDERSTANDING P.S. WE WILL REMOVE THESE AFTER WE ALL KNOW HOW ITS WORKING
-# This file contains the AuthService class which provides methods for user authentication and token verification.
+import bcrypt
+from datetime import datetime, timedelta
+from typing import Optional
+from jose import JWTError, jwt
+from fastapi import HTTPException, status
+from .internal.auth_reader import get_user
+from .auth_types import UserInDB, TokenData
 
-from .internal.auth_reader import AuthReader  # Importing AuthReader for fetching user data.
-from .internal.auth_writer import AuthWriter  # Importing AuthWriter for handling JWT tokens.
+SECRET_KEY = "your_secret_key"
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 4320  # 3 days in minutes
 
-class AuthService:
-    @staticmethod
-    async def authenticate_user(username, password):
-        # Authenticates a user by their username and password.
-        user = await AuthReader.get_user_by_username(username)  # Fetching the user from the database.
-        if user and user.password == password:
-            # If the user exists and the password matches, create an access token.
-            return AuthWriter.create_access_token({"sub": username})
-        return None  # Return None if authentication fails.
+def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
+    to_encode = data.copy()
+    if expires_delta:
+        expire = datetime.utcnow() + expires_delta
+    else:
+        expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    to_encode.update({"exp": expire})
+    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    return encoded_jwt
 
-    @staticmethod
-    async def verify_user_token(token):
-        # Verifies a JWT token.
-        return AuthWriter.decode_jwt(token)  # Decoding the JWT token.
+def authenticate_user(username: str, password: str):
+    user = get_user(username)
+    if not user:
+        return False
+    if not verify_password(password, user.hashed_password):
+        return False
+    return user
+
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    return bcrypt.checkpw(plain_password.encode('utf-8'), hashed_password.encode('utf-8'))
+
+def verify_token_data(token: str):
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        username: str = payload.get("sub")
+        if username is None:
+            return None
+        return TokenData(username=username)
+    except JWTError:
+        return None

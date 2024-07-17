@@ -1,10 +1,21 @@
-# WRITING COMMENTS INITIALLY FOR BETTER ONBOARDING AND EASIER UNDERSTANDING P.S. WE WILL REMOVE THESE AFTER WE ALL KNOW HOW ITS WORKING
-# This file contains the AuthReader class which is responsible for reading user data from the database.
+import bcrypt
+from auth_types import UserInDB
 
-from ..store.auth_models import UserCredentials  # Importing the UserCredentials model from the auth_models file.
+fake_users_db = {
+    "johndoe": {
+        "username": "johndoe",
+        "full_name": "John Doe",
+        "email": "johndoe@example.com",
+        "hashed_password": bcrypt.hashpw("password".encode('utf-8'), bcrypt.gensalt()).decode('utf-8'),
+        "disabled": False,
+    }
+}
 
-class AuthReader:
-    @staticmethod
-    async def get_user_by_username(username):
-        # Fetches a user by username from the database.
-        return await UserCredentials.find_one(UserCredentials.username == username)
+def get_user(username: str):
+    if username in fake_users_db:
+        user_dict = fake_users_db[username]
+        return UserInDB(**user_dict)
+    return None
+
+def hash_password(password: str) -> str:
+    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
