@@ -16,10 +16,10 @@ jobs:
         working-directory: ./backend/
     strategy:
       matrix:
-        python-version: ['3.11.x']
+        python-version: ["3.11.x"]
 
     env:
-      MODE: 'development'
+      MODE: "development"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
