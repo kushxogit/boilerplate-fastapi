@@ -3,11 +3,11 @@ from .internal.account_reader import AccountReader
 
 class AccountService:
     @staticmethod
-    async def login_user(username:str,password:str):
-        user=await AccountReader.get_user_by_username(username)
+    async def login_user(email:str,password:str):
+        user=await AccountReader.get_user_by_email(email)
         if user and user.password==password:
-            return True
-        return False
+            return user
+        return None
     
     
     
