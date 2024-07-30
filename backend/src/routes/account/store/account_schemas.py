@@ -5,12 +5,12 @@ from bson import ObjectId
 class UserCreate(BaseModel):
     email: EmailStr
     password: constr(min_length=8)
-    full_name: str
+    phoneNumber:str
 
 class UserResponse(BaseModel):
     id: Optional[str]
     email: EmailStr
-    full_name: str
+    phoneNumber: str
 
     class Config:
         orm_mode = True

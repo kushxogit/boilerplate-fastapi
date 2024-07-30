@@ -3,8 +3,6 @@
 import sys
 import os
 
-
-
 # Import FastAPI for creating the web application
 from fastapi import FastAPI
 # Import CORSMiddleware for handling CORS
@@ -69,3 +67,9 @@ async def test_database_connection():
         return JSONResponse(content={"status": "Database connection is successful"}, status_code=200)
     except Exception as e:
         return JSONResponse(content={"status": "Database connection failed", "error": str(e)}, status_code=500)
+
+
+from src.routes.account.account_main import router as account_router
+
+
+app.include_router(account_router, prefix="/account", tags=["Account"])

@@ -10,4 +10,8 @@ async def signup(user: UserCreate, db=Depends(get_database)):
     new_user = await register_new_user(user)
     if new_user is None:
         raise HTTPException(status_code=400, detail="User already signed up. Please log in.")
-    return new_user
+    return {
+        "status_code": status.HTTP_201_CREATED,
+        "message": "User successfully created",
+        "user": new_user
+    }

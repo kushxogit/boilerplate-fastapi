@@ -1,6 +1,11 @@
 from beanie import Document,Indexed
+from pydantic import EmailStr
 
 class Account(Document):
-    account_id: int
-    username: str=Indexed(unique=True)
+    email:EmailStr = Indexed(unique=True)
+    phoneNumber: str = Indexed(unique=True)
     password: str
+
+
+
+
