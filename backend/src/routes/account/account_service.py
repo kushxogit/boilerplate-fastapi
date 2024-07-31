@@ -1,5 +1,6 @@
+from src.routes.account.store.account_schemas import UserCreate
+from src.routes.account.internal.account_writer import create_user, get_user_by_email
 from .internal.account_reader import AccountReader
-# from .internal.account_writer import AccountWriter
 
 class AccountService:
     @staticmethod
@@ -8,12 +9,11 @@ class AccountService:
         if user and user.password==password:
             return user
         return None
-    
-    
-    
-    
-    #         return AccountWriter.create_access_token({"sub":username})
-    #     return None
-    # @staticmethod
-    # async def verify_user_token(token:str):
-    #     return AccountWriter.decode_jwt(token)    
+      
+      
+    async def register_new_user(user: UserCreate):
+        existing_user = await get_user_by_email(user.email)
+        if existing_user:
+            return None
+        new_user = await create_user(user)
+        return new_user
