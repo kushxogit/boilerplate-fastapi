@@ -283,3 +283,6 @@ typings/
 
 # Serverless directories
 .serverless/
+
+/db
+.db/

@@ -18,6 +18,8 @@ from src.config.config import APP_NAME, VERSION
 # Import auth_router from auth_main
 from src.routes.auth.auth_main import router as auth_router
 
+from src.routes.account.account_main import router as account_router
+
 # Create a FastAPI instance with title and version
 app = FastAPI(
     title=APP_NAME,
@@ -35,6 +37,8 @@ app.add_middleware(
 
 # Include the authentication router with a prefix and tag
 app.include_router(auth_router, prefix="/auth", tags=["Authentication"])
+
+app.include_router(account_router,prefix="/accounts",tags=["Account"])
 
 # Event handler for application startup
 @app.on_event("startup")
@@ -54,9 +58,9 @@ def main_function():
 @app.post("/token")
 def forward_to_login():
     """
-    Redirect to token-generation (`/auth/token`). Used to make Auth in Swagger-UI work.
+    Redirect to token-generation (`/token`). Used to make Auth in Swagger-UI work.
     """
-    return RedirectResponse(url="/auth/token")
+    return RedirectResponse(url="/token")
 
 # Route to test the database connection
 @app.get("/test-db")
