@@ -1,0 +1,18 @@
+services:
+  backend:
+    build: ./backend-dmd
+    ports:
+      - "8000:8000"
+    networks:
+      - dev
+
+  frontend:
+    build: ./frontend-dmd
+    ports:
+      - "3000:3000"
+    networks:
+      - dev
+
+networks:
+   dev:
+     driver: bridge

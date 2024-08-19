@@ -10,10 +10,10 @@ class AccountService:
             return user
         return None
       
-      
-    async def register_new_user(user: UserCreate):
-        existing_user = await get_user_by_email(user.email)
-        if existing_user:
-            return None
-        new_user = await create_user(user)
-        return new_user
+    
+async def register_new_user(user: UserCreate):
+    existing_user = await get_user_by_email(user.email)
+    if existing_user:
+        return None
+    new_user = await create_user(user)
+    return new_user
