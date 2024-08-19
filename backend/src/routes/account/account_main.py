@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from .rest_api.account_controller import signup
+from .rest_api.account_controller import login
 
 
 router = APIRouter(prefix="/accounts", tags=["Account"])
