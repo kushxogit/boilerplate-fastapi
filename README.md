@@ -149,9 +149,19 @@ Description: Includes the data models and schemas used for authentication, featu
 - Description: Sets up the API router for authentication-related endpoints.
 - Generalized Responsibilities: Configures routing and endpoint registration for the application.
 
-##Authentication Service Provider
+## Authentication Service Provider
 
 - Path: `backend/src/routes/auth/auth_service.py`
 - File Name: `auth_service.py`
 - Description: Offers methods for user authentication and token verification.
 - Generalized Responsibilities: Provides service logic centralizing business rules and operations.
+
+## ✨ Contributors
+
+Big thanks to our contributors for elevating our project with their dedication and expertise! But, we do not wish to stop there, would like to invite contributions from the community in improving these projects and making them more versatile for better reach. Remember, every bit of contribution is immensely valuable, as, together, we are moving in only 1 direction, i.e. forward. 
+
+<a href="https://github.com/kushxogit/boilerplate-fastapi/graphs/contributors"> 
+    <img src="https://contrib.rocks/image?repo=kushxogit/boilerplate-fastapi&max" />
+</a>
+<br>
+<br>
